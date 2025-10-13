@@ -1,0 +1,12 @@
+@SonrisaLimpia.API_HostAddress = http://localhost:5109/api/Consultorios
+
+GET {{SonrisaLimpia.API_HostAddress}}/0199DBDF-3C2C-78D7-BC56-8B217F848A5A
+Accept: application/json
+
+###
+
+POST {{SonrisaLimpia.API_HostAddress}}
+Content-Type: application/json
+{
+  "nombre": "Consultorio Central"
+}

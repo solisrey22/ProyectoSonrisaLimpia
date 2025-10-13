@@ -1,0 +1,7 @@
+﻿namespace SonrisaLimpia.Aplicacion.Utilidades.Mediador
+{
+    public interface IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    {   
+        Task<TResponse> Handle(TRequest request);
+    }
+}
