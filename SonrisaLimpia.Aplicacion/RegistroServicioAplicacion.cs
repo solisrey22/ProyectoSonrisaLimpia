@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Comandos.CrearConsultorio;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
+using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerListadoConsultorios;
 using SonrisaLimpia.Aplicacion.Utilidades.Mediador;
 
 namespace SonrisaLimpia.Aplicacion
@@ -16,6 +17,7 @@ namespace SonrisaLimpia.Aplicacion
             services.AddTransient<IMediator, MediadorSimple>();
             services.AddScoped <IRequestHandler<ComandoCrearConsultorio,Guid>, CasoDeUsoCrearConsultorio>();
             services.AddScoped<IRequestHandler<ConsultaObtenerDetalleConsultorio, ObtenerDetalleConsultorioDto>, CasoDeUsoObtenerDetalleConsultorio>();
+            services.AddScoped<IRequestHandler<ConsultaObtenerListadoConsultorios, List<ConsultorioListadoDTO>>, CasoDeUsoObtenerListadoConsultorios>();
             return services;
         }
     }

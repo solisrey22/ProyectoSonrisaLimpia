@@ -2,6 +2,7 @@
 using SonrisaLimpia.API.DTOs.Consultorios;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Comandos.CrearConsultorio;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
+using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerListadoConsultorios;
 using SonrisaLimpia.Aplicacion.Utilidades.Mediador;
 
 namespace SonrisaLimpia.API.Controllers
@@ -12,12 +13,20 @@ namespace SonrisaLimpia.API.Controllers
     {
         private readonly IMediator _mediator = mediator;
 
+        [HttpGet]
+        public async Task<ActionResult<List<ConsultorioListadoDTO>>> Get()
+        { 
+            var consulta = new ConsultaObtenerListadoConsultorios();
+            var resultado = await _mediator.Send(consulta);
+            return Ok(resultado);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<ObtenerDetalleConsultorioDto>> Get(Guid id)
         {
             var consulta = new ConsultaObtenerDetalleConsultorio {Id = id};
-            var consultorios = await _mediator.Send(consulta);
-            return Ok(consultorios);
+            var resultado = await _mediator.Send(consulta);
+            return Ok(resultado);
         }
 
         [HttpPost]
