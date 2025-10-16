@@ -12,7 +12,40 @@ namespace SonrisaLimpia.Aplicacion.Utilidades.Mediador
         {
             _serviceProvider = serviceProvider;
         }
-        public async Task<TResponse>Send<TResponse>(IRequest<TResponse> request)
+        public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request)
+        {
+            await RealizarValidaciones(request);
+
+            var tipoCasoDeUso = typeof(IRequestHandler<,>).MakeGenericType(request.GetType(), typeof(TResponse));
+
+            var manejador = _serviceProvider.GetService(tipoCasoDeUso);
+
+            if (manejador is null)
+            {
+                throw new ExcepcionDeMediador($"No se encontró un manejador para la solicitud de tipo {request.GetType().Name}");
+            }
+
+            var metodo = tipoCasoDeUso.GetMethod("Handle");
+            return await (Task<TResponse>)metodo.Invoke(manejador, [request]);
+        }
+
+        public async Task Send(IRequest request)
+        {
+            await RealizarValidaciones(request);
+
+            var tipoCasoDeUso = typeof(IRequestHandler<>).MakeGenericType(request.GetType());
+            var casoDeUso = _serviceProvider.GetService(tipoCasoDeUso);
+
+            if (casoDeUso is null)
+            {
+                throw new ExcepcionDeMediador($"No se encontró un manejador para la solicitud de tipo {request.GetType().Name}");
+            }
+
+            var metodo = tipoCasoDeUso.GetMethod("Handle");
+            await (Task)metodo.Invoke(casoDeUso, [request]);
+        }
+
+        private async Task RealizarValidaciones(object request)
         {
             var tipoValidador = typeof(IValidator<>).MakeGenericType(request.GetType());
 
@@ -22,7 +55,7 @@ namespace SonrisaLimpia.Aplicacion.Utilidades.Mediador
             {
                 var metodoValidar = tipoValidador.GetMethod("ValidateAsync");
                 var tareaValidar = (Task)metodoValidar!.Invoke(validador,
-                    new object[] { request, CancellationToken.None })!;
+                    [request, CancellationToken.None])!;
 
                 await tareaValidar.ConfigureAwait(false);
 
@@ -35,18 +68,6 @@ namespace SonrisaLimpia.Aplicacion.Utilidades.Mediador
                 }
             }
 
-
-            var tipoCasoDeUso = typeof(IRequestHandler<,>).MakeGenericType(request.GetType(), typeof(TResponse));
-
-            var manejador = _serviceProvider.GetService(tipoCasoDeUso);
-
-            if (manejador is null)
-            {
-                throw new ExcepcionDeMediador($"No se encontró un manejador para la solicitud de tipo {request.GetType().Name}");
-            }
-
-            var metodo = tipoCasoDeUso.GetMethod("Handle");
-            return await (Task<TResponse>)metodo.Invoke(manejador, new object[] { request });
         }
     }
 }
