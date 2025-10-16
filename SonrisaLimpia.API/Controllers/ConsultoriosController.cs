@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SonrisaLimpia.API.DTOs.Consultorios;
+using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Comandos.ActualizarConsultorio;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Comandos.CrearConsultorio;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerListadoConsultorios;
@@ -15,7 +16,7 @@ namespace SonrisaLimpia.API.Controllers
 
         [HttpGet]
         public async Task<ActionResult<List<ConsultorioListadoDTO>>> Get()
-        { 
+        {
             var consulta = new ConsultaObtenerListadoConsultorios();
             var resultado = await _mediator.Send(consulta);
             return Ok(resultado);
@@ -24,7 +25,7 @@ namespace SonrisaLimpia.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ObtenerDetalleConsultorioDto>> Get(Guid id)
         {
-            var consulta = new ConsultaObtenerDetalleConsultorio {Id = id};
+            var consulta = new ConsultaObtenerDetalleConsultorio { Id = id };
             var resultado = await _mediator.Send(consulta);
             return Ok(resultado);
         }
@@ -33,6 +34,18 @@ namespace SonrisaLimpia.API.Controllers
         public async Task<IActionResult> Post(CrearConsultorioDTO crearConsultorioDTO)
         {
             var comando = new ComandoCrearConsultorio { Nombre = crearConsultorioDTO.Nombre };
+            await _mediator.Send(comando);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, ActualizarConsultorioDTO actualizarConsultorioDTO)
+        {
+            var comando = new ComandoActualizarConsultorio
+            {
+                Id = id,
+                Nombre = actualizarConsultorioDTO.Nombre
+            };
             await _mediator.Send(comando);
             return Ok();
         }

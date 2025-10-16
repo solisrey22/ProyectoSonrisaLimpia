@@ -7,8 +7,8 @@ namespace SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Comandos.CrearConsult
         public ValidarCrearconsultorio()
         {
             RuleFor(x => x.Nombre)
-                .NotEmpty().WithMessage("El campo {PropertyName} de consultorio es requerido.")
-                .MaximumLength(100).WithMessage("El nombre del consultorio no puede exceder los 100 caracteres.");
+                .NotEmpty().WithMessage("El campo {PropertyName} es requerido.")
+                .MaximumLength(150).WithMessage("El nombre del campo {PropertyName} debe ser menor o igual a {MaxLength}.");
         }
     }
 }

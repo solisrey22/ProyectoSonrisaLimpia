@@ -14,11 +14,22 @@ namespace SonrisaLimpia.Dominio.Entidades
 
         public Consultorio(string nombre)
         {
-            if (string.IsNullOrWhiteSpace(nombre))
-                throw new ExcepcionReglaNegocio($"El {nameof(nombre)} no puede estar vacío.");
+            AplicarReglasDeNegocioNombre(nombre);
 
             Id = Guid.CreateVersion7(); // Genera un nuevo Id automáticamente
             Nombre = nombre;
+        }
+
+        public void ActualizarNombre(string nombre)
+        {
+            AplicarReglasDeNegocioNombre(nombre);
+            Nombre = nombre;
+        }
+
+        private void AplicarReglasDeNegocioNombre(string nombre)
+        {
+            if (string.IsNullOrWhiteSpace(nombre))
+                throw new ExcepcionReglaNegocio($"El {nameof(nombre)} no puede estar vacío.");
         }
     }
 }
