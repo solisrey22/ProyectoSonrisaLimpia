@@ -10,7 +10,7 @@ namespace SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Comandos.CrearConsult
     {
         private readonly IRepositorioConsultorios? _repositorioConsultorios;
         private readonly IUnidadDeTrabajo? _unidadDeTrabajo;
-        private readonly IValidator<ComandoCrearConsultorio>? _validador;
+        private readonly IValidator<ComandoCrearConsultorio> _validador;
 
         public CasoDeUsoCrearConsultorio(IRepositorioConsultorios repositorioConsultorios, IUnidadDeTrabajo unidadDeTrabajo)
         {

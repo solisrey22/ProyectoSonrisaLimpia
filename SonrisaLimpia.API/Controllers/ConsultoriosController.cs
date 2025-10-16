@@ -2,6 +2,7 @@
 using SonrisaLimpia.API.DTOs.Consultorios;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Comandos.ActualizarConsultorio;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Comandos.CrearConsultorio;
+using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Comandos.EliminarConsultorio;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
 using SonrisaLimpia.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerListadoConsultorios;
 using SonrisaLimpia.Aplicacion.Utilidades.Mediador;
@@ -47,7 +48,15 @@ namespace SonrisaLimpia.API.Controllers
                 Nombre = actualizarConsultorioDTO.Nombre
             };
             await _mediator.Send(comando);
-            return Ok();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var comando = new ComandoBorrarConsultorio { Id = id };
+            await _mediator.Send(comando);
+            return NoContent();
         }
     }
 }

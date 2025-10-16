@@ -8,14 +8,16 @@ namespace SonrisaLimpia.Pruebas.Aplicacion.CasosDeUsos.Consultorios
     [TestClass]
     public class CasoDeUsoObtenerListadoConsultoriosTests
     {
+#pragma warning disable CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador "required" o declararlo como un valor que acepta valores NULL.
         private IRepositorioConsultorios _repositorio;
-        private CasoDeUsoObtenerListadoConsultorios _casoDeUsoO;
+        private CasoDeUsoObtenerListadoConsultorios _casoDeUso;
+#pragma warning restore CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador "required" o declararlo como un valor que acepta valores NULL.
 
         [TestInitialize]
         public void Setup()
         {
             _repositorio = Substitute.For<IRepositorioConsultorios>();
-            _casoDeUsoO = new CasoDeUsoObtenerListadoConsultorios(_repositorio);
+            _casoDeUso = new CasoDeUsoObtenerListadoConsultorios(_repositorio);
         }
 
         [TestMethod]
@@ -23,14 +25,14 @@ namespace SonrisaLimpia.Pruebas.Aplicacion.CasosDeUsos.Consultorios
         {
             var consultorios = new List<Consultorio>
             {
-                new Consultorio("Consultorio A"),
-                new Consultorio("Consultorio B")
+                new("Consultorio A"),
+                new("Consultorio B")
             };
 
             _repositorio.ObtenerTodos().Returns(consultorios);
             var esperado = consultorios.Select(c => new ConsultorioListadoDTO { ID = c.Id, Nombre = c.Nombre }).ToList();
             
-            var resultado = await _casoDeUsoO.Handle(new ConsultaObtenerListadoConsultorios());
+            var resultado = await _casoDeUso.Handle(new ConsultaObtenerListadoConsultorios());
 
             Assert.AreEqual(esperado.Count, resultado.Count);
 
@@ -46,7 +48,7 @@ namespace SonrisaLimpia.Pruebas.Aplicacion.CasosDeUsos.Consultorios
         {
             _repositorio.ObtenerTodos().Returns([]);
 
-            var resultado = await _casoDeUsoO.Handle(new ConsultaObtenerListadoConsultorios());
+            var resultado = await _casoDeUso.Handle(new ConsultaObtenerListadoConsultorios());
 
             Assert.IsNotNull(resultado);
             Assert.AreEqual(0, resultado.Count);

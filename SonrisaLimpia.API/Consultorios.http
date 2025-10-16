@@ -24,3 +24,7 @@ Content-Type: application/json
 {
   "nombre": "Consultorio Central"
 }
+
+###
+
+DELETE {{SonrisaLimpia.API_HostAddress}}/0199dbdf-3c2c-78d7-bc56-8b217f848a5a
