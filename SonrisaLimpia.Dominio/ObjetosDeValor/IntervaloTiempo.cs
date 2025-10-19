@@ -7,6 +7,11 @@ namespace SonrisaLimpia.Dominio.ObjetosDeValor
         public DateTime FechaInicio { get; }
         public DateTime FechaFin { get; }
 
+        private IntervaloTiempo()
+        {
+            
+        }
+
         public IntervaloTiempo(DateTime fechaInicio, DateTime fechaFin)
         {
             if (fechaInicio >= fechaFin)

@@ -6,21 +6,20 @@ namespace SonrisaLimpia.Dominio.Entidades
 {
     public  class Cita
     {
-        private Guid pacienteId;
-        private Guid dentistaId;
-        private Guid consultorioId;
-        private IntervaloTiempo intervalo;
-
         public Guid Id { get; private set; }
         public Guid PacienteId { get; private set; } 
         public Guid DentistaId { get; private set; } 
         public Guid ConsultorioId { get; private set; } 
         public EstadoCita Estado { get; private set; } 
-        public IntervaloTiempo IntervaloTiempo { get; private set; }
+        public IntervaloTiempo IntervaloTiempo { get; private set; } = null!;
         public Paciente? Paciente { get; private set; } 
         public Dentista? Dentista { get; private set; } 
         public Consultorio? Consultorio { get; private set; }
 
+        private Cita()
+        {
+            
+        }
 
         public Cita(Guid pacienteId, Guid dentistaId, Guid consultorioId, IntervaloTiempo intervaloTiempo)
         {

@@ -14,6 +14,11 @@ namespace SonrisaLimpia.Dominio.Entidades
         public string Nombre { get; private set; } = null!;
         public Email Email { get; private set; } = null!;
 
+        private Dentista()
+        {
+
+        }
+
         public Dentista(string nombre, Email email)
         {
             if (string.IsNullOrWhiteSpace(nombre))

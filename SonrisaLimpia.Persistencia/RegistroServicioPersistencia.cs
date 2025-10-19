@@ -16,6 +16,7 @@ namespace SonrisaLimpia.Persistencia
             
             services.AddScoped<IRepositorioConsultorios, RepositorioConsultorio>();
             services.AddScoped<IUnidadDeTrabajo, UnidadDeTrabajoEFCore>();
+            services.AddScoped<IRepositorioPacientes, RepositorioPacientes>();
             return services;
         }
     }
