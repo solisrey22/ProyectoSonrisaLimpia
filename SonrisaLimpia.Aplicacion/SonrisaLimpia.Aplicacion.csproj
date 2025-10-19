@@ -15,4 +15,8 @@
     <ProjectReference Include="..\SonrisaLimpia.Dominio\SonrisaLimpia.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CasosDeUso\Pacientes\Consultas\" />
+  </ItemGroup>
+
 </Project>

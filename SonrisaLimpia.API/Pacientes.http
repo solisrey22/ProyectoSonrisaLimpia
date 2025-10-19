@@ -1,0 +1,31 @@
+@SonrisaLimpia.API_HostAddress = http://localhost:5109/api/Pacientes
+
+GET {{SonrisaLimpia.API_HostAddress}}/0199DBDF-3C2C-78D7-BC56-8B217F848A5A
+Accept: application/json
+
+###
+
+
+GET {{SonrisaLimpia.API_HostAddress}}
+Accept: application/json
+
+###
+
+POST {{SonrisaLimpia.API_HostAddress}}
+Content-Type: application/json
+{
+  "nombre": "Paciente A",
+  "email": "pacientea@gmail.com"
+}
+
+###
+
+PUT {{SonrisaLimpia.API_HostAddress}}/0199DBDF-3C2C-78D7-BC56-8B217F848A5A
+Content-Type: application/json
+{
+  "nombre": "Consultorio Central"
+}
+
+###
+
+DELETE {{SonrisaLimpia.API_HostAddress}}/0199dbdf-3c2c-78d7-bc56-8b217f848a5a
